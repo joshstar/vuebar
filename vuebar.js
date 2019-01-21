@@ -837,6 +837,10 @@
               scrollbar behaviors for different elements using '-ms-overflow-style'
         \*------------------------------------*/
         function getNativeScrollbarWidth(container) {
+            if (typeof window._nativeScrollbarWidth !== "undefined") {
+                return window._nativeScrollbarWidth;
+            }
+            
             var container = container ? container : document.body;
 
             var fullWidth = 0;
@@ -861,6 +865,7 @@
             barWidth = fullWidth - child.offsetWidth;
 
             container.removeChild(wrapper);
+            window._nativeScrollbarWidth = barWidth;
 
             return barWidth;
         }
